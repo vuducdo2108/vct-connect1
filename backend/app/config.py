@@ -50,6 +50,18 @@ class Settings:
 
     @classmethod
     def from_env(cls) -> "Settings":
+        from pathlib import Path
+        for filename in (".env", ".env.clerk"):
+            path = Path(filename)
+            if path.exists():
+                for line in path.read_text(encoding="utf-8").splitlines():
+                    line = line.strip()
+                    if line and not line.startswith("#") and "=" in line:
+                        k, v = line.split("=", 1)
+                        k, v = k.strip(), v.strip()
+                        if k not in os.environ:
+                            os.environ[k] = v
+
         transport = os.getenv("QUEUE_TRANSPORT", "local")
         if transport not in {"local", "azure"}:
             raise ValueError("QUEUE_TRANSPORT must be local or azure")
