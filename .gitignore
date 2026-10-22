@@ -12,3 +12,9 @@ frontend/apps/extension/build/
 *.tsbuildinfo
 frontend/apps/extension/build-live/
 frontend/apps/web/private/
+sample webpages/
+_bmad/
+_bmad-output/
+tmp/
+*.pdf
+frontend/apps/extension/build-local/
